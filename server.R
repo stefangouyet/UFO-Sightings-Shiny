@@ -2,6 +2,7 @@ library(shiny)
 library(ggmap)
 library(mapproj)
 library(dplyr)
+library(data.table)
 library(leaflet)
 
 
@@ -104,7 +105,7 @@ shinyServer(function(input, output) {
     }
     
     else if (input$Zoom == "North America"){
-      zoom_lat <- 54.525961
+      zoom_lat <- 48
       zoom_lng <- -105.255119
       zoom<-3
     }
@@ -134,11 +135,16 @@ shinyServer(function(input, output) {
     }
     
     output$mymap <- renderLeaflet({
-      leaflet(data=updated_data) %>% addTiles() %>% addMarkers(~longitude,~latitude3, label=~datetime, popup = ~comments) %>% setView(zoom_lng,zoom_lat,zoom=zoom)
+      leaflet(data=updated_data) %>% addTiles() %>% addMarkers(~longitude,~latitude3, label=~datetime, popup = ~comments) %>% 
+        addProviderTiles(providers$Esri.NatGeoWorldMap) %>% 
+        setView(zoom_lng,zoom_lat,zoom=zoom)
       
     })
     
-    output$summary <- renderPrint({summary(updated_data)})
+    output$table <- renderDataTable({
+      table_data <- updated_data %>% select(-c(date.posted,longitude,latitude,latitude2,latitude3,`duration..hours.min.`))
+      as.data.table(table_data)})
+    
     
   })  
   

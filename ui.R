@@ -3,12 +3,13 @@ library(ggmap)
 library(mapproj)
 library(dplyr)
 library(leaflet)
+library(data.table)
 
 shinyUI(fluidPage(
   
   
   titlePanel("A Sample of UFO Sightings (1949-Present)"),
-  tags$h3("by Stefan Gouyet"),
+  tags$h2("by Stefan Gouyet"),
   tags$h6("This Shiny application provides an interactive visualization of UFO Sightings around the world. The data 
           was gathered by the National UFO Reporting Center (NUFORC) and was downloaded on Kaggle.com."),
 
@@ -22,7 +23,7 @@ shinyUI(fluidPage(
                                                                          "Flash" = "flash", "Cigar" = "cigar", "Formation" = "formation",
                                                                          "Changing" = "changing"),
                   selected = "light"),
-      selectInput(inputId = "Zoom", label = "Edit Map Zoom",choices = c("World", "North America", "Europe","Africa",
+      selectInput(inputId = "Zoom", label = "Edit Map Zoom", choices = c("World", "North America", "Europe","Africa",
                                                                         "South America",
                                                                         "Asia","Oceania"),
                   selected="World"),
@@ -31,7 +32,9 @@ shinyUI(fluidPage(
     actionButton(inputId = "update",label = "Update")),
     mainPanel(
       leafletOutput('mymap'),
-      verbatimTextOutput('summary')
+      br(),
+      br(),
+      dataTableOutput('table')
     )
     
   )))
