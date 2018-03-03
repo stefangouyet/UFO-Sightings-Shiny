@@ -8,10 +8,10 @@ library(data.table)
 shinyUI(fluidPage(
   
   
-  titlePanel("A Sample of UFO Sightings (1949-Present)"),
-  tags$h2("by Stefan Gouyet"),
-  tags$h6("This Shiny application provides an interactive visualization of UFO Sightings around the world. The data 
-          was gathered by the National UFO Reporting Center (NUFORC) and was downloaded on Kaggle.com."),
+  titlePanel("Visualizing UFO Sightings (1949-Present)"),
+  tags$h4("Shiny app developed by Stefan Gouyet"),
+  tags$h6("This app provides an interactive visualization of UFO Sightings around the world."),
+  tags$h6("Data gathered by the National UFO Reporting Center (NUFORC), compiled on Kaggle.com."),
 
   sidebarLayout(
     sidebarPanel(
